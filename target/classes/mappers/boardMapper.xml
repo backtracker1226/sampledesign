@@ -5,6 +5,30 @@
   
  <mapper namespace="org.team.mappers.boardMapper">
  
+ <sql id="Search">
+ <if test="type != null">
+			<choose>
+			<!-- 제목 일때  -->
+				<when test="type=='n'.toString()">
+					and title like concat('%',#{keyword},'%')
+				</when>
+				<!-- 내용 일때  -->
+				<when test="type=='c'.toString()">
+					and content like concat('%',#{keyword},'%')
+				</when>
+				<!-- 제목 + 내용 일때  -->
+				<when test="type=='nc'.toString()">
+				and title like concat('%',#{keyword},'%') or content like concat('%',#{keyword},'%')
+				</when>
+				
+				<!-- 작성자 검색 -->
+				<when test="type=='w'.toString()">
+				and writer like concat('%',#{keyword},'%')
+				</when>
+			</choose>
+</if>
+ </sql>
+ 
  <insert id="create">
  insert into tbl_board(
  title, content, writer)
@@ -25,13 +49,27 @@
  
  <update id="update" parameterType="BoardVO">
  
- update tbl_board set title = #{title}, content = #{content} where bno = #{bno}
+ update tbl_board set title = #{title}, content = #{content}, writer = #{writer} where bno = #{bno} 
  
  </update>
  
  <select id="list" resultType="BoardVO">
  
- select * from tbl_board limit #{page}, #{perPageNum}
+ select * from tbl_board
+ 
+ where bno > 0 
+ 
+ <include refid="Search"></include>
+ 
+ order by bno desc limit #{pages}, #{perPageNum}
+ 
+ </select>
+ 
+ <select id="totalSize" resultType="Integer">
+ 
+select count(*) from tbl_board
+where bno > 0
+ <include refid="Search"></include>
  
  </select>
  

@@ -47,6 +47,13 @@ public class BoardDAOImpl implements BoardDAO {
 		// TODO Auto-generated method stub
 		return ses.selectList(namespace + ".list",cri);
 	}
+
+	@Override
+	public Integer getCount(Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return ses.selectOne(namespace + ".totalSize", cri);
+		
+	}
 	
 	
 

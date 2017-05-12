@@ -30,5 +30,7 @@ public interface BoardService {
 	
 	public List<BoardVO> list(Criteria cri)throws Exception;
 	
+	public Integer getCount(Criteria cri)throws Exception;
+	
 
 }

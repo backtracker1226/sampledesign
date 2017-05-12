@@ -48,4 +48,10 @@ public class BoardServiceImpl implements BoardService {
 		return dao.list(cri);
 	}
 
+	@Override
+	public Integer getCount(Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getCount(cri);
+	}
+
 }

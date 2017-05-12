@@ -19,6 +19,8 @@ public interface BoardDAO {
 	public void delete(Integer bno)throws Exception;
 	
 	public List<BoardVO> list(Criteria cri)throws Exception;
+	
+	public Integer getCount(Criteria cri)throws Exception;
 
 	
 	

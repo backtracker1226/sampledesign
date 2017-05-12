@@ -4,6 +4,7 @@ public class Criteria {
 	
 	// page, pagenum
 	private int page, perPageNum;
+	private String type, keyword;
 
 	public Criteria() {
 		this.page = 1;
@@ -15,11 +16,20 @@ public class Criteria {
 	}
 
 	public void setPage(int page) {
-		page = ((page -1)*10)+1;
+		if(page <= 0){
+			this.page = 1;
+		}
 		this.page = page;
+	}
+	public int getPages(){
+		return (this.page - 1) * 10;
+		
 	}
 
 	public int getPerPageNum() {
+		if(perPageNum >= 10 || perPageNum <= 10){
+			this.perPageNum = 10;
+		}
 		return perPageNum;
 	}
 
@@ -27,10 +37,28 @@ public class Criteria {
 		this.perPageNum = perPageNum;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
 	@Override
 	public String toString() {
-		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + "]";
+		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", type=" + type + ", keyword=" + keyword
+				+ "]";
 	}
+
 
 
 
